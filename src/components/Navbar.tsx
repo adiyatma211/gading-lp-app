@@ -55,7 +55,7 @@ export default function Navbar({ wa }: { wa: string }) {
     }`;
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-50">
+    <header className="fixed top-2 sm:top-3 left-0 right-0 z-50">
       <div className="mx-auto max-w-7xl px-4 lg:px-6">
         <div className="relative w-full flex items-center justify-between rounded-full bg-white/80 supports-[backdrop-filter]:bg-white/60 backdrop-blur ring-1 ring-gray-200 shadow-lg px-3 py-2 md:px-4">
           <a href="#home" className="inline-flex items-center gap-2" aria-label="Beranda">
