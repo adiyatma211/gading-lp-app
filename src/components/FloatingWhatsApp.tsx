@@ -14,7 +14,11 @@ export default function FloatingWhatsApp({
       target="_blank"
       rel="noopener noreferrer"
       aria-label="Chat WhatsApp"
-      className="fixed bottom-6 right-6 z-50 rounded-full bg-[#25D366] p-4 shadow-xl transition-transform hover:scale-105 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#25D366]"
+      className="fixed z-[80] rounded-full bg-[#25D366] p-4 shadow-xl transition-transform hover:scale-105 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#25D366]"
+      style={{
+        right: "max(1rem, env(safe-area-inset-right))",
+        bottom: "max(1.25rem, env(safe-area-inset-bottom))",
+      }}
     >
       <svg
         xmlns="http://www.w3.org/2000/svg"
@@ -29,4 +33,3 @@ export default function FloatingWhatsApp({
     </a>
   );
 }
-

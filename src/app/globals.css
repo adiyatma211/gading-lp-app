@@ -24,3 +24,286 @@ body {
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
 }
+html { scroll-behavior: smooth; }
+
+/* Prevent horizontal scroll from wide ornaments/elements */
+html, body { overflow-x: hidden; }
+
+/* Global page scrollbar styling (fallbacks per engine) */
+html { scrollbar-width: none; -ms-overflow-style: none; }
+html::-webkit-scrollbar { width: 0; height: 0; display: none; }
+
+/* Creative helpers for a more vibrant printing look */
+.gradient-mesh {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background:
+    radial-gradient(40% 50% at 20% 10%, rgba(14,165,233,0.35), transparent 60%),
+    radial-gradient(50% 60% at 80% 20%, rgba(37,99,235,0.35), transparent 60%),
+    radial-gradient(45% 55% at 30% 80%, rgba(56,189,248,0.35), transparent 60%),
+    radial-gradient(50% 50% at 80% 70%, rgba(99,102,241,0.28), transparent 60%);
+  filter: blur(28px);
+}
+
+.dots-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background-image: radial-gradient(rgba(0,0,0,0.06) 1px, transparent 1px);
+  background-size: 14px 14px;
+  mask-image: linear-gradient(to bottom, black, transparent 80%);
+  -webkit-mask-image: linear-gradient(to bottom, black, transparent 80%);
+}
+
+@keyframes float-y {
+  0% { transform: translateY(0px); }
+  50% { transform: translateY(-8px); }
+  100% { transform: translateY(0px); }
+}
+
+.float-slow { animation: float-y 8s ease-in-out infinite; }
+
+/* Subtle ornaments (orbs/rings) for background flair */
+.ornament { position: absolute; pointer-events: none; z-index: 0; }
+.ornament.orb { filter: blur(20px); opacity: .28; }
+.ornament.ring {
+  opacity: .18;
+  border-radius: 9999px;
+  box-shadow:
+    inset 0 0 0 2px rgba(14,165,233,.25),
+    0 8px 28px rgba(2,6,23,.08);
+  background: radial-gradient(60% 60% at 50% 50%, rgba(14,165,233,.10), transparent 60%);
+}
+.orb-sky   { background: radial-gradient(40% 40% at 50% 50%, rgba(14,165,233,.55), transparent 60%); }
+.orb-blue  { background: radial-gradient(40% 40% at 50% 50%, rgba(37,99,235,.50), transparent 60%); }
+.orb-violet{ background: radial-gradient(40% 40% at 50% 50%, rgba(99,102,241,.45), transparent 60%); }
+.float-6s  { animation: float-y 6s ease-in-out infinite; }
+.float-10s { animation: float-y 10s ease-in-out infinite; }
+.float-12s { animation: float-y 12s ease-in-out infinite; }
+
+/* Generic ornaments for all sections using pseudo-elements */
+.section-ornaments { position: relative; isolation: isolate; }
+.section-ornaments::before,
+.section-ornaments::after {
+  content: "";
+  position: absolute;
+  z-index: 0;
+  pointer-events: none;
+  filter: blur(26px);
+}
+.section-ornaments::before {
+  left: -60px; top: -40px; width: 220px; height: 220px;
+  background: radial-gradient(50% 50% at 50% 50%, rgba(14,165,233,.22), transparent 62%);
+  opacity: .16;
+}
+.section-ornaments::after {
+  right: -70px; bottom: -50px; width: 260px; height: 260px;
+  background: radial-gradient(50% 50% at 50% 50%, rgba(37,99,235,.20), transparent 62%);
+  opacity: .14;
+}
+
+/* Remove heavy patterns: keep a clean, modern feel */
+.section-layer { display: none !important; }
+
+/* Marquee for services strip */
+@keyframes marquee {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+.marquee {
+  overflow: hidden;
+  white-space: nowrap;
+  position: relative;
+}
+.marquee-track {
+  display: inline-flex;
+  gap: 1.25rem;
+  will-change: transform;
+  animation: marquee 18s linear infinite;
+}
+
+/* Button shine for CTA */
+.btn-shine { position: relative; overflow: hidden; }
+.btn-shine::before {
+  content: "";
+  position: absolute;
+  top: 0; left: -150%;
+  width: 50%; height: 100%;
+  background: linear-gradient(120deg, transparent, rgba(255,255,255,0.6), transparent);
+  transform: skewX(-20deg);
+}
+.btn-shine:hover::before { left: 150%; transition: left 0.8s ease; }
+
+/* CTA pulse effect */
+@keyframes ping-soft {
+  0% { transform: scale(1); opacity: .5; }
+  70% { transform: scale(1.15); opacity: 0; }
+  100% { transform: scale(1.2); opacity: 0; }
+}
+.btn-pulse { position: relative; isolation: isolate; }
+.btn-pulse::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 9999px;
+  background: rgba(255,255,255,.45);
+  z-index: -1;
+  animation: ping-soft 1.8s ease-out infinite;
+}
+
+/* Multi-color brand bar */
+.colorbar {
+  background-image: linear-gradient(
+    90deg,
+    #0ea5e9 0%,
+    #2563eb 16%,
+    #22c55e 32%,
+    #eab308 48%,
+    #f97316 64%,
+    #ef4444 80%,
+    #a855f7 100%
+  );
+}
+
+/* Simple CSS-only modal using :target */
+.modal { display: none; }
+.modal:target { display: flex; }
+.modal-backdrop {
+  background: color-mix(in srgb, #0b1220 50%, transparent);
+}
+
+/* Layanan toggle: show carousel when closed, grid when open */
+.layanan-toggle:has(details[open]) .layanan-carousel { display: none; }
+.layanan-toggle:has(details[open]) .layanan-grid { display: grid; }
+
+/* Hide scrollbar but keep scroll functionality (cross-browser) */
+.no-scrollbar {
+  -ms-overflow-style: none; /* IE and old Edge */
+  scrollbar-width: none;    /* Firefox */
+}
+.no-scrollbar::-webkit-scrollbar { display: none; } /* Chrome/Safari/Opera */
+
+/* Alternative: subtle thin scrollbar. Replace `no-scrollbar` with `scrollbar-soft` to use. */
+.scrollbar-soft { scrollbar-width: thin; scrollbar-color: rgba(2,6,23,.28) transparent; }
+.scrollbar-soft::-webkit-scrollbar { height: 6px; background: transparent; }
+.scrollbar-soft::-webkit-scrollbar-thumb { background: rgba(2,6,23,.22); border-radius: 9999px; }
+.scrollbar-soft:hover::-webkit-scrollbar-thumb { background: rgba(2,6,23,.36); }
+
+/* Carousel visual polish */
+/* Removed gradient edge to keep edges clean */
+
+.carousel-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  display: inline-flex; align-items: center; justify-content: center;
+  height: 28px; width: 28px;
+  border-radius: 9999px;
+  color: #0b1220;
+  background: rgba(255,255,255,0.95);
+  box-shadow: 0 4px 18px rgba(2,6,23,0.18);
+  backdrop-filter: blur(6px);
+  transition: all .2s ease;
+  border: 1px solid rgba(2,6,23,0.06);
+  z-index: 10;
+}
+.carousel-btn:hover { transform: translateY(-50%) scale(1.05); color: white; background: linear-gradient(135deg, #0ea5e9, #2563eb); box-shadow: 0 8px 24px rgba(37,99,235,0.25); }
+
+.carousel-progress {
+  position: absolute;
+  left: 1rem; right: 1rem; bottom: 0.15rem;
+  height: 3px; border-radius: 9999px; overflow: hidden;
+  background: rgba(2,6,23,0.08);
+}
+.carousel-progress::after {
+  content: ""; display: block; height: 100%;
+  width: calc(var(--progress, 0) * 100%);
+  background: linear-gradient(90deg, #0ea5e9, #2563eb);
+  transition: width .18s ease;
+}
+
+/* Align buttons to inner padding of the scroller */
+.layanan-carousel { --pad-inline: 16px; --btn-gap: 8px; --btn-out: 20px; }
+@media (min-width: 1024px) { .layanan-carousel { --pad-inline: 24px; --btn-gap: 10px; --btn-out: 28px; } }
+@media (max-width: 480px) { .layanan-carousel { --btn-out: 8px; } }
+.carousel-btn.is-left { left: calc(var(--pad-inline) - var(--btn-gap) - var(--btn-out)); right: auto; }
+.carousel-btn.is-right { right: calc(var(--pad-inline) - var(--btn-gap) - var(--btn-out)); left: auto; }
+
+/* Print styles: ensure theme applies and prints cleanly */
+@media print {
+  /* Preserve colors when printing */
+  *, *::before, *::after {
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+    color-adjust: exact;
+  }
+
+  /* Force light theme for print for readability */
+  :root {
+    --background: #ffffff;
+    --foreground: #111111;
+  }
+
+  html, body {
+    background: var(--background) !important;
+    color: var(--foreground) !important;
+  }
+
+  /* Neutralize UI effects that don’t translate to paper */
+  .sticky { position: static !important; }
+  .backdrop-blur, [class*="backdrop-blur"] {
+    -webkit-backdrop-filter: none !important;
+    backdrop-filter: none !important;
+  }
+  .shadow, [class*="shadow"] { box-shadow: none !important; }
+  .ring-1, .ring-2, .ring, [class*="ring-"] { box-shadow: none !important; }
+
+  /* Remove gradients so text stays legible on paper */
+  .bg-gradient-to-b,
+  .bg-gradient-to-br,
+  .bg-gradient-to-r { background-image: none !important; }
+
+  /* Force gradient utilities to resolve to plain theme background in print */
+  .from-sky-50,
+  .from-sky-100,
+  .from-sky-200,
+  .from-sky-300,
+  .from-sky-400\/40,
+  .from-sky-400\/50,
+  .from-sky-500,
+  .from-sky-700,
+  .to-blue-200,
+  .to-blue-400\/40,
+  .to-blue-400\/50,
+  .to-blue-600,
+  .to-blue-700,
+  .to-blue-800,
+  .to-indigo-50,
+  .bg-white\/70,
+  .bg-white\/80,
+  .bg-white\/85 { background-color: var(--background) !important; }
+
+  /* Make sure text stays readable */
+  .text-white, [class*="text-white"] { color: #111 !important; }
+  .text-gray-900, [class*="text-gray-900"] { color: #111 !important; }
+
+  /* Optional: show link targets on paper */
+  a[href]::after {
+    content: " (" attr(href) ")";
+    font-size: 0.8em;
+  }
+
+  /* Page setup */
+  @page { margin: 12mm; }
+}
+
+/* Scroll snap padding for carousel */
+#layanan-scroll { scroll-padding-inline: 1rem; }
+@media (min-width: 1024px) { #layanan-scroll { scroll-padding-inline: 1.5rem; } }
+/* Scroll snap padding for testimonials */
+#testi-scroll { scroll-padding-inline: 1rem; }
+@media (min-width: 1024px) { #testi-scroll { scroll-padding-inline: 1.5rem; } }
+
+/* Ensure vertical overflow remains visible for zoomed items */
+.layanan-carousel{ overflow-y: visible; }
