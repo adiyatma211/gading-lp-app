@@ -36,7 +36,7 @@ export default function FAQSection() {
               <path d="M6 9l6 6 6-6" />
             </svg>
           </summary>
-          <div className="rounded-b-2xl bg-white/90 px-4 pb-5 sm:px-5 sm:pb-6 text-sm leading-relaxed text-gray-700 ring-1 ring-black/5 -mt-1">
+          <div className="rounded-b-2xl bg-white/90 px-4 pt-3 pb-5 sm:px-5 sm:pt-4 sm:pb-6 text-sm leading-relaxed text-gray-700 ring-1 ring-black/5 -mt-1">
             {f.a}
           </div>
         </details>
