@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useMemo } from "react";
+import Image from "next/image";
 import CarouselControls from "@/components/CarouselControls";
 
 type Item = {
@@ -15,12 +16,12 @@ type Item = {
 };
 
 const ITEMS: Item[] = [
-  { id: "banner", title: "Banner & Spanduk", price: "Mulai Rp25.000", img: "https://picsum.photos/seed/banner-print/600/300", desc: "Bahan tebal, warna tajam, cocok untuk promo.", tags: ["Vinyl", "Eyelets", "Full color"], label: "Popular", category: "Large" },
-  { id: "mmt", title: "MMT / Indoor-Outdoor", price: "Mulai Rp30.000/m2", img: "https://picsum.photos/seed/mmt-print/600/300", desc: "Backdrop, booth, dan signage.", tags: ["Indoor/Outdoor", "Tahan cuaca", "High-res"], label: "Best Value", category: "Large" },
-  { id: "pin", title: "Pin Gantungan Kunci", price: "Mulai Rp10.000", img: "https://picsum.photos/seed/pin-keychain/600/300", desc: "Merchandise lucu untuk komunitas & brand.", tags: ["Cetak custom", "Banyak varian", "Warna cerah"], label: "Custom", category: "Merch" },
-  { id: "stiker", title: "Stiker", price: "Mulai Rp5.000", img: "https://picsum.photos/seed/sticker-print/600/300", desc: "Vinyl waterproof, bisa die-cut.", tags: ["Vinyl", "Waterproof", "Die-cut"], label: "Hemat", category: "Merch" },
-  { id: "kartunama", title: "Kartu Nama", price: "Mulai Rp35.000", img: "https://picsum.photos/seed/business-card/600/300", desc: "Art carton, laminasi doff/glossy.", tags: ["Art carton", "Laminasi", "Full color"], label: "Favorit", category: "Print" },
-  { id: "poster", title: "Poster", price: "Mulai Rp20.000", img: "https://picsum.photos/seed/poster-print/600/300", desc: "A3/A2/A1, warna tajam.", tags: ["A3/A2/A1", "Full color", "Kertas tebal"], label: "Baru", category: "Print" },
+  { id: "banner", title: "Banner & Spanduk", price: "Mulai Rp25.000", img: "/cat-large.svg", desc: "Bahan tebal, warna tajam, cocok untuk promo.", tags: ["Vinyl", "Eyelets", "Full color"], label: "Popular", category: "Large" },
+  { id: "mmt", title: "MMT / Indoor-Outdoor", price: "Mulai Rp30.000/m2", img: "/cat-large.svg", desc: "Backdrop, booth, dan signage.", tags: ["Indoor/Outdoor", "Tahan cuaca", "High-res"], label: "Best Value", category: "Large" },
+  { id: "pin", title: "Pin Gantungan Kunci", price: "Mulai Rp10.000", img: "/cat-merch.svg", desc: "Merchandise lucu untuk komunitas & brand.", tags: ["Cetak custom", "Banyak varian", "Warna cerah"], label: "Custom", category: "Merch" },
+  { id: "stiker", title: "Stiker", price: "Mulai Rp5.000", img: "/cat-merch.svg", desc: "Vinyl waterproof, bisa die-cut.", tags: ["Vinyl", "Waterproof", "Die-cut"], label: "Hemat", category: "Merch" },
+  { id: "kartunama", title: "Kartu Nama", price: "Mulai Rp35.000", img: "/cat-print.svg", desc: "Art carton, laminasi doff/glossy.", tags: ["Art carton", "Laminasi", "Full color"], label: "Favorit", category: "Print" },
+  { id: "poster", title: "Poster", price: "Mulai Rp20.000", img: "/cat-print.svg", desc: "A3/A2/A1, warna tajam.", tags: ["A3/A2/A1", "Full color", "Kertas tebal"], label: "Baru", category: "Print" },
 ];
 
 const CATS = [
@@ -97,7 +98,16 @@ export default function LayananTabsCarousel() {
                   </div>
                 </div>
                 <div className="mt-4 rounded-xl ring-1 ring-black/5 overflow-hidden">
-                  <img src={card.img} alt={card.title} className="h-44 sm:h-52 lg:h-56 w-full object-cover transition transform-gpu group-hover:scale-[1.02] group-hover:rotate-[0.5deg]" loading="lazy" />
+                  <div className="relative h-44 sm:h-52 lg:h-56 w-full bg-white">
+                    <Image
+                      src={card.img}
+                      alt={card.title}
+                      fill
+                      sizes="(max-width: 640px) 85vw, (max-width: 1024px) 60vw, 32vw"
+                      className="object-contain p-6 transition transform-gpu group-hover:scale-[1.02] group-hover:rotate-[0.5deg]"
+                      priority={false}
+                    />
+                  </div>
                 </div>
                 <p className="mt-3 text-sm text-gray-600">{card.desc}</p>
                 <div className="mt-3 flex flex-wrap gap-2">
