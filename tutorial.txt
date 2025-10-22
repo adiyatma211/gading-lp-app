@@ -1,0 +1,78 @@
+Tutorial Deploy Next.js ke Shared Hosting (Subfolder /gading)
+
+Ringkasan
+- Target URL: https://gading.com/gading
+- Strategi: Static export (tanpa server Node) dengan basePath /gading.
+- Hasil build: folder statis siap upload (index.html, _next, aset).
+
+Prasyarat
+- Node.js LTS + npm di komputer lokal.
+- Akses ke cPanel/File Manager atau FTP/SFTP hosting.
+
+Konfigurasi (sudah disiapkan di repo)
+- File: landing-page/next.config.ts
+  - output: "export"
+  - basePath: "/gading" (aktif saat NODE_ENV=production)
+  - assetPrefix: "/gading/" (aktif saat production)
+  - images.unoptimized: true (agar next/image cocok di static hosting)
+
+Build di lokal
+1) Masuk folder proyek
+   cd landing-page
+
+2) Install dependencies
+   npm install
+
+3) Build static export
+   npm run build
+   (Jika bermasalah dengan Turbopack, coba: npx next build)
+
+4) Pastikan folder output muncul
+   - Periksa folder: landing-page/out
+   - Jika folder out belum ada, jalankan (opsional): npx next export
+
+Hasil build & cara upload ke hosting
+- Buka folder landing-page/out lalu cek strukturnya. Ada 2 kemungkinan:
+
+  A) out/gading/ ada (index.html berada di dalam subfolder gading)
+     - Upload isi out/gading/ ke public_html/gading/
+     - Upload juga folder out/_next/ ke public_html/gading/_next/
+
+  B) out/ berisi index.html di root (tanpa subfolder gading)
+     - Upload seluruh isi out/ ke public_html/gading/
+
+- Intinya: di server harus ada file public_html/gading/index.html dan folder public_html/gading/_next/ (serta aset lain) agar situs berjalan.
+
+Permission di server
+- Folder: 755
+- File: 644
+
+Hal yang sebaiknya tidak diupload
+- Jangan upload source code (src/, package.json, next.config.ts) ke public_html/gading. Cukup hasil build (isi dari out/).
+
+Troubleshooting
+- 403 Forbidden
+  Penyebab: tidak ada index.html di public_html/gading atau hosting menolak directory listing.
+  Solusi: pastikan Anda sudah mengupload hasil build yang benar hingga ada file public_html/gading/index.html.
+
+- Style/JS tidak jalan (halaman tampak polos)
+  Penyebab: folder _next tidak terupload ke /gading/_next atau assetPrefix salah.
+  Solusi: upload ulang folder out/_next ke public_html/gading/_next dan pastikan next.config.ts menggunakan basePath/assetPrefix "/gading" saat production.
+
+- Gambar tidak tampil
+  Penyebab: path aset tidak sesuai.
+  Solusi: kita sudah menggunakan next/image unoptimized serta aset lokal/public, pastikan folder public ikut ter-copy saat build/export (otomatis). Upload ulang jika perlu.
+
+Update konten ke server (redeploy)
+1) Ubah konten di lokal.
+2) Jalankan build lagi: npm run build.
+3) Upload ulang isi folder out/ sesuai pola di atas (timpa file lama di public_html/gading).
+
+Catatan opsional
+- trailingSlash: jika hosting mengharuskan URL diakhiri "/", aktifkan opsi trailingSlash di next.config.ts.
+- Script build: bila ingin menghindari Turbopack, ubah script build di package.json menjadi: "build": "next build".
+
+Verifikasi cepat
+- Buka https://gading.com/gading
+- Cek request aset mengarah ke /gading/_next/... (sesuai basePath). Jika 404, cek kembali struktur upload.
+
