@@ -1,6 +1,7 @@
 import Image from "next/image";
 import logo from "@/asstes/logo2.png";
 import hero1 from "@/asstes/1.jpeg";
+import HeroImageDesktop from "@/components/HeroImageDesktop";
 import LayananTabsCarousel from "@/components/LayananTabsCarousel";
 import PortfolioGrid from "@/components/PortfolioGrid";
 import PricingSection from "@/components/PricingSection";
@@ -77,12 +78,12 @@ export default function Home() {
               </div>
             </div>
           </div>
-          {/* Sederhanakan di mobile: sembunyikan gambar hero */}
-          <div className="hidden lg:block relative mt-6 lg:mt-0 max-w-2xl mx-auto lg:mx-0">
-            <div className="rounded-2xl bg-white/80 backdrop-blur ring-1 ring-gray-200 p-4 shadow-sm">
-              <Image src={hero1} width={hero1.width} height={hero1.height} alt="Galery 1" className="w-full h-auto rounded-xl ring-1 ring-black/5" />
-            </div>
-          </div>
+          {/* Render hero image only on desktop to prevent mobile CLS */}
+          <HeroImageDesktop
+            src={hero1}
+            alt="Galery 1"
+            className="relative mt-6 lg:mt-0 max-w-2xl mx-auto lg:mx-0"
+          />
         </div>
       </section>
 

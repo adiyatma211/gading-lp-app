@@ -36,7 +36,8 @@ export default function PortfolioGrid() {
               fill
               sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 33vw"
               className="object-cover transition-transform duration-300 group-hover:scale-[1.03] group-hover:rotate-[0.25deg]"
-              priority={it.id <= 3}
+              priority={false}
+              loading="lazy"
             />
           </div>
           <figcaption className="absolute left-2 bottom-2 sm:left-3 sm:bottom-3">

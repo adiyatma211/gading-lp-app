@@ -76,3 +76,35 @@ Verifikasi cepat
 - Buka https://gading.com/gading
 - Cek request aset mengarah ke /gading/_next/... (sesuai basePath). Jika 404, cek kembali struktur upload.
 
+
+Lampiran: Perintah CLI Siap Pakai
+1) Build di Lokal (tanpa Node di hosting)
+   - macOS/Linux:
+     - cd /path/ke/proyek/landing-page
+     - npm ci || npm install
+     - npx next build && npx next export -o out
+   - Windows (PowerShell):
+     - cd E:\path\ke\proyek\landing-page
+     - npm ci || npm install
+     - npx next build ; npx next export -o out
+   - Jika next.config.* sudah pakai output: 'export': cukup npx next build (hasil ke folder out/).
+
+2) Upload ke Hosting via SSH
+   - rsync (disarankan, cepat & sync):
+     - rsync -avz --delete out/ USER@HOST:/home/USER/public_html/gading/
+   - scp (sederhana):
+     - macOS/Linux: scp -r out/* USER@HOST:/home/USER/public_html/gading/
+     - Windows PowerShell: scp -r .\out\* USER@HOST:/home/USER/public_html/gading/
+
+3) Alternatif: Zip + Unzip di Server
+   - Lokal:
+     - macOS/Linux: (cd out && zip -r ../out.zip .)
+     - Windows: Compress-Archive -Path .\out\* -DestinationPath .\out.zip
+   - Upload:
+     - scp out.zip USER@HOST:/home/USER/public_html/gading/
+   - SSH lalu ekstrak di server:
+     - ssh USER@HOST "cd /home/USER/public_html/gading && unzip -o out.zip"
+
+Catatan
+- Ganti USER, HOST, dan path docroot sesuai environment hosting kamu (seringnya public_html, htdocs, atau httpdocs).
+- Pastikan proyek tidak memakai SSR/Server Actions; hanya SSG/static yang cocok untuk next export.

@@ -11,7 +11,7 @@ R.c("server/chunks/ssr/ea9b6_next_dist_client_components_builtin_global-error_a9
 R.c("server/chunks/ssr/[root-of-the-server]__2dfdd733._.js")
 R.c("server/chunks/ssr/landing-page_4b3fc0fa._.js")
 R.c("server/chunks/ssr/landing-page_9135cce6._.js")
-R.c("server/chunks/ssr/landing-page_33a30aef._.js")
+R.c("server/chunks/ssr/landing-page_1d64e33b._.js")
 R.m(33604)
 R.m(82468)
 module.exports=R.m(82468).exports

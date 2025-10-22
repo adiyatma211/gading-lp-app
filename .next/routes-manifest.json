@@ -2,16 +2,8 @@
   "version": 3,
   "pages404": true,
   "caseSensitive": false,
-  "basePath": "/gading",
+  "basePath": "",
   "redirects": [
-    {
-      "source": "/gading/",
-      "destination": "/gading",
-      "basePath": false,
-      "internal": true,
-      "statusCode": 308,
-      "regex": "^/gading/$"
-    },
     {
       "source": "/:path+/",
       "destination": "/:path+",
@@ -22,13 +14,7 @@
   ],
   "headers": [],
   "rewrites": {
-    "beforeFiles": [
-      {
-        "source": "/gading//_next/:path+",
-        "destination": "/gading/_next/:path+",
-        "regex": "^/gading//_next(?:/((?:[^/]+?)(?:/(?:[^/]+?))*))(?:/)?$"
-      }
-    ],
+    "beforeFiles": [],
     "afterFiles": [],
     "fallback": []
   },
